@@ -53,6 +53,7 @@
                   // plus généralement : https://www.php.net/manual/fr/mysqli.query.php
                  */
 
+                
                 //verification
                 if ($mysqli->connect_errno)
                 {
@@ -63,13 +64,16 @@
                     exit();
                 }
 
+                //$userId = intval($_GET['user_id']);
+
                 // Etape 2: Poser une question à la base de donnée et récupérer ses informations
                 // cette requete vous est donnée, elle est complexe mais correcte, 
                 // si vous ne la comprenez pas c'est normal, passez, on y reviendra
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
-                    users.alias as author_name,  
+                    users.alias as author_name,
+                    users.id as author_id,  
                     count(likes.id) as like_number,  
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
@@ -95,6 +99,9 @@
                 // NB: à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
                 while ($post = $lesInformations->fetch_assoc())
                 {
+
+                     
+
                     //la ligne ci-dessous doit etre supprimée mais regardez ce 
                     //qu'elle affiche avant pour comprendre comment sont organisées les information dans votre 
                     echo "<pre>" . print_r($post, 1) . "</pre>";
@@ -109,7 +116,11 @@
                         <h3>
                             <time><?php echo $post['created'] ?></time>
                         </h3>
-                        <address><?php echo $post['author_name'] ?></address>
+                        <address>
+                            <a href="wall.php?user_id=<?php echo $post['author_id'] ?>">
+                            <?php echo $post['author_name'] ?>
+                            </a>
+                        </address>
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>
