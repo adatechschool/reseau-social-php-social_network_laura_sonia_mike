@@ -29,7 +29,7 @@ session_start();
                     /**
                      * BD
                      */
-                    $mysqli = new mysqli("localhost", "root", "root", "socialnetwork_tests");
+                    $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
                     /**
                      * Récupération de la liste des auteurs
                      */
@@ -46,17 +46,17 @@ session_start();
                      * TRAITEMENT DU FORMULAIRE
                      */
                     // Etape 1 : vérifier si on est en train d'afficher ou de traiter le formulaire
-                    // si on recoit un champs email rempli il y a une chance que ce soit un traitement
+                    // si on reçoit un champ email rempli il y a une chance que ce soit un traitement
                     $enCoursDeTraitement = isset($_POST['auteur']);
                     if ($enCoursDeTraitement)
                     {
                         // on ne fait ce qui suit que si un formulaire a été soumis.
-                        // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travaille se situe
-                        // observez le résultat de cette ligne de débug (vous l'effacerez ensuite)
+                        // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travail se situe
+                        // observez le résultat de cette ligne de debug (vous l'effacerez ensuite)
                         echo "<pre>" . print_r($_POST, 1) . "</pre>";
                         // et complétez le code ci dessous en remplaçant les ???
-                        $authorId = $_POST['???'];
-                        $postContent = $_POST['???'];
+                        $authorId = $_POST['auteur'];
+                        $postContent = $_POST['message'];
 
 
                         //Etape 3 : Petite sécurité
@@ -65,15 +65,13 @@ session_start();
                         $postContent = $mysqli->real_escape_string($postContent);
                         //Etape 4 : construction de la requete
                         $lInstructionSql = "INSERT INTO posts "
-                                . "(id, user_id, content, created, permalink, post_id) "
+                                . "(id, user_id, content, created) "
                                 . "VALUES (NULL, "
                                 . $authorId . ", "
                                 . "'" . $postContent . "', "
-                                . "NOW(), "
-                                . "'', "
-                                . "NULL);"
+                                . "NOW());"
                                 ;
-                        echo $lInstructionSql;
+                        //echo $lInstructionSql;
                         // Etape 5 : execution
                         $ok = $mysqli->query($lInstructionSql);
                         if ( ! $ok)
@@ -81,7 +79,7 @@ session_start();
                             echo "Impossible d'ajouter le message: " . $mysqli->error;
                         } else
                         {
-                            echo "Message posté en tant que :" . $listAuteurs[$authorId];
+                            echo "Message posté en tant que : " . $listAuteurs[$authorId];
                         }
                     }
                     ?>                     
