@@ -1,4 +1,16 @@
-<header>
+<?php
+session_start();
+?>
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>ReSoC - Connexion</title> 
+        <meta name="author" content="Bibi">
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <header>
 <a href='http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/admin.php'><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
 <nav id="menu">
     <a href="http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/news.php">Actualités</a>
