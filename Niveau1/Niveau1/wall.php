@@ -32,6 +32,75 @@
                         (n° <?php echo $userId ?>)
                     </p>
                 </section>
+
+                
+
+<?php
+                $enCoursDeTraitement = isset($_POST['message']);
+                    if ($enCoursDeTraitement)
+                    {
+                        
+                        echo "Code d'insertion exécuté."; // Ajoutez ceci pour vérifier si le code est atteint
+
+                        // on ne fait ce qui suit que si un formulaire a été soumis.
+                        // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travail se situe
+                        // observez le résultat de cette ligne de debug (vous l'effacerez ensuite)
+                        echo "<pre>" . print_r($_POST, 1) . "</pre>";
+                        // et complétez le code ci dessous en remplaçant les ???
+                        $authorId = $_SESSION['connected_id'];      //$_POST['auteur'];
+                        $postContent = $_POST['message'];
+
+
+                        //Etape 3 : Petite sécurité
+                        // pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
+                        $authorId = intval($mysqli->real_escape_string($authorId));
+                        $postContent = $mysqli->real_escape_string($postContent);
+                        //Etape 4 : construction de la requete
+                        $lInstructionSql = "INSERT INTO posts "
+                                . "(id, user_id, content, created) "
+                                . "VALUES (NULL, "
+                                . $authorId . ", "
+                                . "'" . $postContent . "', "
+                                . "NOW());"
+                                ;
+                        echo $lInstructionSql;
+
+                        
+                        
+                        // Etape 5 : execution
+                        $ok = $mysqli->query($lInstructionSql);
+                        //header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
+                        //exit();
+
+                        if ( ! $ok)
+                        {
+                            echo "Impossible d'ajouter le message: " . $mysqli->error;
+                        } else
+                        {
+                            echo "Message posté en tant que : " . $authorId;
+                            header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
+                            exit();
+                            
+                        }
+                    }
+?>
+
+
+<?php if ($_SESSION['connected_id'] == $userId): ?>
+    <form action="wall.php" id="messageForm" method="post">
+        <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
+        <dl>
+            <dt><label for="message">Message</label></dt>
+            <dd><textarea name="message" id="message"></textarea></dd>
+        </dl>
+        <input type="submit" value="Envoyer">
+    </form>
+<?php else: ?>
+    <p>Voulez-vous vous abonner à cet utilisateur ?</p>
+<?php endif; ?>
+
+
+
             </aside>
             <main>
                 <?php
