@@ -84,8 +84,39 @@
                         }
                     }
 ?>
+<?php
+$enCoursDeTraitement = isset($_POST['button']);
+if ($enCoursDeTraitement){
+                        $stalkerId = $_SESSION['connected_id'];      //$_POST['auteur'];
+                        $followedId = $userId;
 
 
+                        //Etape 3 : Petite sécurité
+                        // pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
+                        $stalkerId = intval($mysqli->real_escape_string($stalkerId));
+                        $followedId = $mysqli->real_escape_string($followedId);
+                        //Etape 4 : construction de la requete
+                        $lInstructionSql = "INSERT INTO followers "
+                                . "(id, followed_user_id, following_user_id) "
+                                . "VALUES (NULL, "
+                                . $stalkerId . ", "
+                                . "'" . $followedId . "'; "
+                                ;
+                        echo $lInstructionSql;
+
+$ok = $mysqli->query($lInstructionSql);
+if ( ! $ok)
+{
+    echo "Abonnement non pris en compte !" . $mysqli->error;
+} else
+{
+    echo "Vous êtes abonné à : " . $userId;
+    //header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
+    //exit();
+    
+}
+}
+?>
 <?php if ($_SESSION['connected_id'] == $userId): ?>
     <form action="wall.php" id="messageForm" method="post">
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
@@ -96,7 +127,10 @@
         <input type="submit" value="Envoyer">
     </form>
 <?php else: ?>
+    <form action="wall.php?user_id=<?php echo $userId ?>" id="abonnement" method="post">
     <p>Voulez-vous vous abonner à cet utilisateur ?</p>
+    <input type="submit" name="button" value="s'abonner">
+    </form>
 <?php endif; ?>
 
 
