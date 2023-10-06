@@ -114,6 +114,18 @@ if ( ! $ok)
 }
 ?>
 
+<?php
+
+// $postId = fetch_assoc(post_id);
+$lInstructionSql = "INSERT INTO likes "
+                                . "(id, user_id, post_id) "
+                                . "VALUES (NULL, "
+                                . "'" . $_SESSION['connected_id'] . "', "
+                                . "' 9 ')"
+                                ;
+$lesInformations = $mysqli->query($LInstructionSql);
+
+?>
 
 <?php if ($_SESSION['connected_id'] == $userId): ?>
     <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
