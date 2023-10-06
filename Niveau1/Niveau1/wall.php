@@ -115,7 +115,8 @@ if ( ! $ok)
 ?>
 
 <?php
-
+$enCoursDeTraitement = isset($_POST['likes']);
+if ($enCoursDeTraitement){
 // $postId = fetch_assoc(post_id);
 $lInstructionSql = "INSERT INTO likes "
                                 . "(id, user_id, post_id) "
@@ -123,8 +124,8 @@ $lInstructionSql = "INSERT INTO likes "
                                 . "'" . $_SESSION['connected_id'] . "', "
                                 . "' 9 ')"
                                 ;
-$lesInformations = $mysqli->query($LInstructionSql);
-
+$lesInformations = $mysqli->query($lInstructionSql);
+}
 ?>
 
 <?php if ($_SESSION['connected_id'] == $userId): ?>
@@ -205,7 +206,7 @@ $lesInformations = $mysqli->query($LInstructionSql);
                             <small>♥<?php echo $post['like_number'] ?></small>
                             <form action="wall.php?user_id=<?php echo $userId ?>" id="likes" method="post">
                     
-                         <input type="submit" value="♥">
+                         <input type="submit" name="likes" value="♥">
                             </form>
                             <a href="">#<?php echo $post['taglist'] ?></a>
                         </footer>
