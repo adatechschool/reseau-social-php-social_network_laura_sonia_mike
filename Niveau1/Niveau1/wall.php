@@ -191,6 +191,10 @@ if ( ! $ok)
                         </div>                                            
                         <footer>
                             <small>♥<?php echo $post['like_number'] ?></small>
+                            <form action="wall.php?user_id=<?php echo $userId ?>" id="likes" method="post">
+                    
+                         <input type="submit" value="♥">
+                            </form>
                             <a href="">#<?php echo $post['taglist'] ?></a>
                         </footer>
                     </article>
