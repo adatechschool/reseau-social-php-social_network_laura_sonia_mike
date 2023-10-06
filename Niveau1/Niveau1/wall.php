@@ -63,7 +63,7 @@
                                 . "'" . $postContent . "', "
                                 . "NOW());"
                                 ;
-                        echo $lInstructionSql;
+                        //echo $lInstructionSql;
 
                         
                         
@@ -77,8 +77,8 @@
                         } else
                         {
                             echo "Message posté en tant que : " . $authorId;
-                            header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
-                            exit();
+                            //header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
+                            //exit();
                             
                         }
                     }
@@ -107,25 +107,22 @@ $ok = $mysqli->query($lInstructionSql);
 if ( ! $ok)
 {
     echo "Abonnement non pris en compte !" . $mysqli->error;
-} //else
-//{
-    //echo "Vous êtes abonné à : " . $user['alias']; 
-//}
+}
 }
 ?>
 
 <?php
 $enCoursDeTraitement = isset($_POST['likes']);
 if ($enCoursDeTraitement){
-// $postId = fetch_assoc(post_id);
-$lInstructionSql = "INSERT INTO likes "
-                                . "(id, user_id, post_id) "
-                                . "VALUES (NULL, "
-                                . "'" . $_SESSION['connected_id'] . "', "
-                                . "' 9 ')"
-                                ;
-$lesInformations = $mysqli->query($lInstructionSql);
-}
+            $postId = $_POST['post_id'];
+    $lInstructionSql = "INSERT INTO likes "
+                                    . "(id, user_id, post_id) "
+                                    . "VALUES (NULL, "
+                                    . "'" . $_SESSION['connected_id'] . "', "
+                                    . "'" . $postId . "') "
+                                    ;
+    $lesInformations = $mysqli->query($lInstructionSql);
+    }
 ?>
 
 <?php if ($_SESSION['connected_id'] == $userId): ?>
@@ -166,7 +163,7 @@ $lesInformations = $mysqli->query($lInstructionSql);
                  * Etape 3: récupérer tous les messages de l'utilisatrice
                  */
                 $laQuestionEnSql = "
-                    SELECT posts.content, posts.created, users.alias as author_name, 
+                    SELECT posts.content, posts.created, posts.id, users.alias as author_name, 
                     COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
@@ -188,6 +185,7 @@ $lesInformations = $mysqli->query($lInstructionSql);
                  */
                 while ($post = $lesInformations->fetch_assoc())
                 {
+                    //echo "<pre>" . print_r($post, 1) . "</pre>";
 
                     ?>                
                     <article>
@@ -204,10 +202,10 @@ $lesInformations = $mysqli->query($lInstructionSql);
                         </div>                                            
                         <footer>
                             <small>♥<?php echo $post['like_number'] ?></small>
-                            <form action="wall.php?user_id=<?php echo $userId ?>" id="likes" method="post">
-                    
-                         <input type="submit" name="likes" value="♥">
-                            </form>
+                                <form action="wall.php?user_id=<?php echo $userId ?>" id="likes" method="post">
+                                    <input type="submit" name="likes" value="♥">
+                                    <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
+                                </form>
                             <a href="">#<?php echo $post['taglist'] ?></a>
                         </footer>
                     </article>
