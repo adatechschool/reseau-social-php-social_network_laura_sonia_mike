@@ -69,8 +69,7 @@
                         
                         // Etape 5 : execution
                         $ok = $mysqli->query($lInstructionSql);
-                        //header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
-                        //exit();
+                        
 
                         if ( ! $ok)
                         {
@@ -99,26 +98,25 @@ if ($enCoursDeTraitement){
                         $lInstructionSql = "INSERT INTO followers "
                                 . "(id, followed_user_id, following_user_id) "
                                 . "VALUES (NULL, "
-                                . $stalkerId . ", "
-                                . "'" . $followedId . "'; "
+                                . "'" . $followedId . "', "
+                                . "'" . $stalkerId . "')"
                                 ;
-                        echo $lInstructionSql;
+                        //echo $lInstructionSql;
 
 $ok = $mysqli->query($lInstructionSql);
 if ( ! $ok)
 {
     echo "Abonnement non pris en compte !" . $mysqli->error;
-} else
-{
-    echo "Vous êtes abonné à : " . $userId;
-    //header('Location: http://localhost/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=' . $_SESSION['connected_id']);
-    //exit();
-    
-}
+} //else
+//{
+    //echo "Vous êtes abonné à : " . $user['alias']; 
+//}
 }
 ?>
+
+
 <?php if ($_SESSION['connected_id'] == $userId): ?>
-    <form action="wall.php" id="messageForm" method="post">
+    <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
         <dl>
             <dt><label for="message">Message</label></dt>
@@ -126,12 +124,25 @@ if ( ! $ok)
         </dl>
         <input type="submit" value="Envoyer">
     </form>
-<?php else: ?>
-    <form action="wall.php?user_id=<?php echo $userId ?>" id="abonnement" method="post">
-    <p>Voulez-vous vous abonner à cet utilisateur ?</p>
-    <input type="submit" name="button" value="s'abonner">
-    </form>
-<?php endif; ?>
+<?php else:
+    $connected_id = $_SESSION['connected_id'];
+    $requeteSql = "
+                    SELECT followers.followed_user_id, followers.following_user_id 
+                    FROM followers
+                    WHERE (followers.followed_user_id='$userId') AND (followers.following_user_id='$connected_id')
+                    ";
+                $lesInformations = $mysqli->query($requeteSql);
+                if ($lesInformations->num_rows == 0): ?>
+                
+                    <form action="wall.php?user_id=<?php echo $userId ?>" id="abonnement" method="post">
+                        <p>Voulez-vous vous abonner à cet utilisateur ?</p>
+                        <input type="submit" name="button" value="S'abonner">
+                        </form>
+                        <?php else:
+                            echo "Vous êtes abonné à : " . $user['alias'];
+                        ?>
+                        <?php endif; ?>
+<?php endif; ?> 
 
 
 
