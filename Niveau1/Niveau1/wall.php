@@ -205,8 +205,20 @@ if ($enCoursDeTraitement){
                                 echo $paragraph."."."<br>";
                             }
 
-                            if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) {
-                                echo "<pre>" . print_r($matches[0], true) . "</pre>";
+                            if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) 
+                            $requeteSql = "
+                    SELECT tags.label 
+                    FROM tags
+                    WHERE (tags.label = $matches[1][0]) 
+                    ";
+                $lesInformations = $mysqli->query($requeteSql);
+                if ($lesInformations->num_rows == 0){
+                // $labelMatch = strval($matches[1][0]);
+                                $lInstructionSql = "INSERT INTO tags "
+                                . "(id, label) "
+                                . "VALUES (NULL, "
+                                . "'" . strval($matches[1][0]) . "')"
+                                ;   
                             };
                             //echo $post['content'] 
                             ?></p>
