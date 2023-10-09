@@ -198,7 +198,18 @@ if ($enCoursDeTraitement){
                             </a>
                         </address>
                         <div>
-                            <p><?php echo $post['content'] ?></p>
+                            <p><?php 
+                            $message = $post['content'];
+                            $messageArray = explode(".", $message);
+                            foreach ($messageArray as $paragraph){
+                                echo $paragraph."."."<br>";
+                            }
+
+                            if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) {
+                                echo "<pre>" . print_r($matches[0], true) . "</pre>";
+                            };
+                            //echo $post['content'] 
+                            ?></p>
                         </div>                                            
                         <footer>
                             <small>♥<?php echo $post['like_number'] ?></small>
