@@ -40,12 +40,12 @@
                     if ($enCoursDeTraitement)
                     {
                         
-                        echo "Code d'insertion exécuté."; // Ajoutez ceci pour vérifier si le code est atteint
+                        //echo "Code d'insertion exécuté."; // Ajoutez ceci pour vérifier si le code est atteint
 
                         // on ne fait ce qui suit que si un formulaire a été soumis.
                         // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travail se situe
                         // observez le résultat de cette ligne de debug (vous l'effacerez ensuite)
-                        echo "<pre>" . print_r($_POST, 1) . "</pre>";
+                            //echo "<pre>" . print_r($_POST, 1) . "</pre>";
                         // et complétez le code ci dessous en remplaçant les ???
                         $authorId = $_SESSION['connected_id'];      //$_POST['auteur'];
                         $postContent = $_POST['message'];
@@ -200,26 +200,28 @@ if ($enCoursDeTraitement){
                         <div>
                             <p><?php 
                             $message = $post['content'];
-                            $messageArray = explode(".", $message);
-                            foreach ($messageArray as $paragraph){
-                                echo $paragraph."."."<br>";
+                            $messageArray = explode("\n", $message);
+                            foreach ($messageArray as $sentence){
+                                echo $sentence."<br>";
                             }
 
-                            if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) 
-                            $requeteSql = "
-                    SELECT tags.label 
-                    FROM tags
-                    WHERE (tags.label = $matches[1][0]) 
-                    ";
-                $lesInformations = $mysqli->query($requeteSql);
-                if ($lesInformations->num_rows == 0){
-                // $labelMatch = strval($matches[1][0]);
-                                $lInstructionSql = "INSERT INTO tags "
-                                . "(id, label) "
-                                . "VALUES (NULL, "
-                                . "'" . strval($matches[1][0]) . "')"
-                                ;   
-                            };
+                            if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) {
+                                $labelMatch = strval($matches[1][0]);
+                                // Vérifier si le tag existe déjà dans la base de données
+                                $requeteSql = "SELECT label FROM tags WHERE label = '$labelMatch'";
+                                $lesInfos = $mysqli->query($requeteSql);
+
+                                if ($lesInfos->num_rows == 0) {
+                                    // Si le tag n'existe pas, l'insérer dans la base de données
+                                    $lInstructionSql = "INSERT INTO tags (id, label) VALUES (NULL, '$labelMatch')";
+                                    $ok = $mysqli->query($lInstructionSql);
+
+                                    // if (!$ok) {
+                                    //     echo "Erreur lors de l'insertion du tag : " . $mysqli->error;
+                                    // } else {
+                                    //     echo "Tag inséré avec succès : " . $labelMatch;
+                                    // }
+                            }};
                             //echo $post['content'] 
                             ?></p>
                         </div>                                            
