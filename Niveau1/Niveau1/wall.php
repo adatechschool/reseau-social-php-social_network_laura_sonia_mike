@@ -206,6 +206,7 @@ if ($enCoursDeTraitement){
                             }
 
                             if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) {
+                                //echo "<pre>" . print_r($matches, 1) . "</pre>";
                                 $labelMatch = strval($matches[1][0]);
                                 // Vérifier si le tag existe déjà dans la base de données
                                 $requeteSql = "SELECT label FROM tags WHERE label = '$labelMatch'";
@@ -214,6 +215,15 @@ if ($enCoursDeTraitement){
                                 if ($lesInfos->num_rows == 0) {
                                     // Si le tag n'existe pas, l'insérer dans la base de données
                                     $lInstructionSql = "INSERT INTO tags (id, label) VALUES (NULL, '$labelMatch')";
+                                    $ok = $mysqli->query($lInstructionSql);
+
+                                    // Récupérer l'ID du tag inséré ou existant
+                                    $result = $mysqli->query("SELECT id FROM tags WHERE label = '$labelMatch'");
+                                    $row = $result->fetch_assoc();
+                                    $tagId = $row['id'];
+
+                                    // Insérer dans la table posts_tags
+                                    $lInstructionSql = "INSERT INTO posts_tags (post_id, tag_id) VALUES ('$postId', '$tagId')";
                                     $ok = $mysqli->query($lInstructionSql);
 
                                     // if (!$ok) {
