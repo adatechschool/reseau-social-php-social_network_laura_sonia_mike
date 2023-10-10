@@ -10,14 +10,17 @@ session_start();
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
-        <header>
-<a href='/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/admin.php'><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
-<nav id="menu">
+        <style>body {background-image: url('background.jpg');}</style> 
+    <header>
+    <a href='/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/admin.php'><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
+    <nav id="menu">
+    <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau2/Niveau2//login.php">Connexion</a>
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1//news.php">Actualités</a>
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=5">Mur</a>
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/feed.php?user_id=5">Flux</a>
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/tags.php?tag_id=1">Mots-clés</a>
 </nav>
+<nav id="title">Chat-badab-ADA</nav>
 <nav id="user">
     <a href="#">▾ Profil</a>
     <ul>
