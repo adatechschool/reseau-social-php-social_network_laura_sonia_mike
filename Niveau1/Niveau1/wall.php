@@ -129,8 +129,8 @@ if ($enCoursDeTraitement){
     <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
         <dl>
-            <dt><label for="message">Message</label></dt>
-            <dd><textarea name="message" id="message"></textarea></dd>
+            <dt><label for="message">Écris sur ton mur</label></dt><br>
+            <dd><textarea rows="10" cols="30" name="message" id="message"></textarea></dd>
         </dl>
         <input type="submit" value="Envoyer">
     </form>

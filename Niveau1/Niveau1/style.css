@@ -1,7 +1,7 @@
 body {
   background-repeat: no-repeat;
   font-family: Arial;
-  background-size:cover;
+  background-size: cover;
 }
 
 a {
@@ -191,7 +191,7 @@ pre {
 }
 
 #title {
-  font-family: 'Bungee Shade', sans-serif;
+  font-family: "Bungee Shade", sans-serif;
   font-size: xx-large;
   flex: 1;
   text-align: center;
@@ -200,5 +200,10 @@ pre {
 }
 
 address {
-  font-family: 'Courgette', cursive;
+  font-family: "Courgette", cursive;
+}
+
+textarea {
+  resize: none;
+  overflow: auto;
 }
