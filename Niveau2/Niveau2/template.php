@@ -10,8 +10,9 @@ session_start();
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
+    <style>body {background-image: url('background.jpg');}</style>
         <header>
-<a href='/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/admin.php'><img src="resoc.jpg" alt="Logo de notre réseau social"/></a>
+<a href='/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/admin.php'><img src="logo-principal.gif" alt="Logo de notre réseau social"/></a>
 <nav id="menu">
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1//news.php">Actualités</a>
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/wall.php?user_id=5">Mur</a>
