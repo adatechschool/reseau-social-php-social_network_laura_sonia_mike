@@ -190,11 +190,9 @@ pre {
 }
 
 #title {
-  display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: xx-large;
   flex: 1;
-  width: 50%;
-  align-items: stretch;
   text-align: center;
-  padding-top: 2em;
-  border-left: 1px solid #99b;
+  margin-top: 1em;
 }
