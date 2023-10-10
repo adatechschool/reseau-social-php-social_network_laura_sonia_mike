@@ -23,6 +23,9 @@ session_start();
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/feed.php?user_id=5">Flux</a>
     <a href="/reseau-social-php-social_network_laura_sonia_mike/Niveau1/Niveau1/tags.php?tag_id=1">Mots-clés</a>
 </nav>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Borel&family=Bungee+Shade&family=Pacifico&family=Poppins:wght@200;500;600&display=swap" rel="stylesheet">
 <nav id="title">Chat-badab-ADA</nav>
 <nav id="user">
     <a href="#">▾ Profil</a>
