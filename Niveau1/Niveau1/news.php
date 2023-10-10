@@ -4,11 +4,11 @@
 
     <div id="wrapper">
         <aside>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+            <img src="./Images/<?php echo $_SESSION['connected_name'] ?>.png" alt="Portrait de l'utilisatrice"/>
         <section>
         <h3>Présentation</h3>
         <p>Sur cette page vous trouverez les derniers messages de
-            tou.te.s les utilisatrice.eur.s du site.</p>
+            toutes les utilisatrices du site.</p>
         </section>
         </aside> 
             <main>
@@ -56,12 +56,27 @@
 
                 //$userId = intval($_GET['user_id']);
 
+
+                //Traitement des likes
+                $enCoursDeTraitement = isset($_POST['likes']);
+                if ($enCoursDeTraitement){
+                    $postId = $_POST['post_id'];
+                    $lInstructionSql = "INSERT INTO likes "
+                                    . "(id, user_id, post_id) "
+                                    . "VALUES (NULL, "
+                                    . "'" . $_SESSION['connected_id'] . "', "
+                                    . "'" . $postId . "') "
+                                    ;
+                    $lesInformations = $mysqli->query($lInstructionSql);
+                }
+
                 // Etape 2: Poser une question à la base de donnée et récupérer ses informations
                 // cette requete vous est donnée, elle est complexe mais correcte, 
                 // si vous ne la comprenez pas c'est normal, passez, on y reviendra
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
+                    posts.id,
                     users.alias as author_name,
                     users.id as author_id,  
                     count(likes.id) as like_number,  
@@ -107,16 +122,20 @@
                             <time><?php echo $post['created'] ?></time>
                         </h3>
                         <address>
-                            <a href="wall.php?user_id=<?php echo $post['author_id'] ?>">
-                            <?php echo $post['author_name'] ?>
+                            <a href="wall.php?user_id=<?php echo $userId ?>">
+                            par <?php echo $post['author_name'] ?>
                             </a>
                         </address>
                         <div>
                             <p><?php echo $post['content'] ?></p>
                         </div>
                         <footer>
-                            <small>♥ <?php echo $post['like_number'] ?></small>
-                            <a href="">#<?php echo $post['taglist'] ?></a>,
+                            <small>♥<?php echo $post['like_number'] ?></small>
+                            <form action="news.php" id="likes" method="post">
+                                <input type="submit" name="likes" value="♥">
+                                <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
+                            </form>
+                            <a href="">#<?php echo $post['taglist'] ?></a>
                             
                         </footer>
                     </article>
