@@ -146,7 +146,7 @@ if ($enCoursDeTraitement){
                 
                     <form action="wall.php?user_id=<?php echo $userId ?>" id="abonnement" method="post">
                         <p>Voulez-vous vous abonner à cet utilisateur ?</p>
-                        <input type="submit" name="button" value="S'abonner">
+                        <input type="submit" name="button" class="button" value="S'abonner">
                         </form>
                         <?php else:
                             echo "Vous êtes abonné à : " . $user['alias'];
@@ -236,9 +236,9 @@ if ($enCoursDeTraitement){
                             ?></p>
                         </div>                                            
                         <footer>
-                            <small>♥<?php echo $post['like_number'] ?></small>
+                            <small style="color:red" >♥<?php echo $post['like_number'] ?></small>
                                 <form action="wall.php?user_id=<?php echo $userId ?>" id="likes" method="post">
-                                    <input type="submit" name="likes" value="♥">
+                                    <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                     <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                                 </form>
                             <a href="">#<?php echo $post['taglist'] ?></a>
