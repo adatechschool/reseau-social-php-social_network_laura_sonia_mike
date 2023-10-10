@@ -198,3 +198,7 @@ pre {
   color: rgb(133, 52, 215);
   text-shadow: 5px 2px 10px;
 }
+
+address {
+  font-family: 'Courgette', cursive;
+}
