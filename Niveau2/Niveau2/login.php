@@ -1,7 +1,8 @@
 <?php
         include 'template.php';
         ?>
-
+<html>
+    <body style="background-repeat: no-repeat; background-size:cover">
         <div id="wrapper" >
 
             <aside>

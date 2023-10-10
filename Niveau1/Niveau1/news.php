@@ -130,7 +130,7 @@
                             <p><?php echo $post['content'] ?></p>
                         </div>
                         <footer>
-                            <small>♥<?php echo $post['like_number'] ?></small>
+                            <small style="color: red">♥<?php echo $post['like_number'] ?></small>
                             <form action="news.php" id="likes" method="post">
                                 <input type="submit" name="likes" value="♥">
                                 <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
