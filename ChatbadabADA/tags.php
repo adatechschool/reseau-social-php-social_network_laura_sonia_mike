@@ -11,6 +11,7 @@
             /**
              * Etape 1: Le mur concerne un mot-clé en particulier
              */
+            
             $tagId = intval($_GET['tag_id']);
             ?>
             
@@ -23,6 +24,10 @@
                 $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $tag = $lesInformations->fetch_assoc();
+
+
+                $req = "SELECT * FROM tags";
+                $listeDesTags = $mysqli->query($req);
                 //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par le label et effacer la ligne ci-dessous
                 //echo "<pre>" . print_r($tag, 1) . "</pre>";
                 ?>
@@ -30,11 +35,19 @@
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les derniers messages comportant
-                        le mot-clé <?php echo $tag['label'] ?>
+                        le mot-clé #<?php echo $tag['label'] ?>
                         (n° <?php echo $tagId ?>)
                     </p>
 
-                </section>
+                
+                <h3>Mots-clefs disponibles</h3>
+                <?php while($tagList = $listeDesTags->fetch_assoc()) { ?>
+                <div class="motHashTag">               
+                <a href=""><i> #<?php echo $tagList['label'] ?> </i></a>
+            </div> 
+                <?php };?>
+            </section>
+
             </aside>
             <main>
                 <?php
@@ -48,7 +61,8 @@
                     users.alias as author_name, 
                     users.id as author_id, 
                     count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    GROUP_CONCAT(DISTINCT tags.label) AS taglist,
+                    GROUP_CONCAT(DISTINCT tags.id) AS tag_ids
                     FROM posts_tags as filter 
                     JOIN posts ON posts.id=filter.post_id
                     JOIN users ON users.id=posts.user_id
@@ -101,7 +115,19 @@
                                     <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                     <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                                 </form>
-                            <a href="">#<?php echo $post['taglist'] ?></a>
+                                <?php
+                                if (!empty($post['taglist'])) {
+                                    $tagLabels = explode(',', $post['taglist']);
+                                    $tagIds = explode(',', $post['tag_ids']);
+                                    
+                                    foreach ($tagLabels as $key => $tagLabel) {
+                                        $tagId = $tagIds[$key];
+                                        echo "<a href='tags.php?tag_id=$tagId'>#" . htmlspecialchars($tagLabel) . "</a>";
+                                    }
+                                } else {
+                                    echo "<a href='#'>#notag</a>";
+                                }
+                                ?>
                         </footer>
                 </article>
                 <?php } ?>

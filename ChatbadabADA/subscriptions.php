@@ -34,7 +34,16 @@
                 while ($post = $lesInformations->fetch_assoc())
                 {?>
                 <article>
-                    <img src="user.jpg" alt="blason"/>
+
+                <?php
+                    if(file_exists('./Images/' . $post['alias'] . '.png')) { 
+                        echo '<img src="./Images/' . $post['alias'] . '.png" alt="blasonuser"/>';
+                    }
+                    else{
+                        echo '<img src="./Images/user.jpg" alt="blason"/>';
+                    } 
+                    ?>
+                    
                     <h3><a href="wall.php?user_id=<?php echo $post['id'] ?>"><?php echo $post['alias'] ?></a></h3>
                     <p><?php echo $post['id'] ?></p>                    
                 </article>

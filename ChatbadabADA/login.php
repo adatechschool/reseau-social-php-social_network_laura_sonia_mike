@@ -60,7 +60,7 @@
                             $_SESSION['connected_id']=$user['id'];
                             $_SESSION['connected_name']=$user['alias'];
 
-                            header("Location: //feed.php?user_id=".$user['id']);
+                            header("Location: /reseau-social-php-social_network_laura_sonia_mike/ChatbadabADA/news.php");
 
                         }
                     }

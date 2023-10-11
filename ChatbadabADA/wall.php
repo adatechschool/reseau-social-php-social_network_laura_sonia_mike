@@ -25,7 +25,15 @@
                 $user = $lesInformations->fetch_assoc();
                 ?>
 
-                <img src="./Images/<?php echo $user['alias'] ?>.png" alt="Portrait de l'utilisatrice"/>
+                <?php
+                    if(file_exists('./Images/' . $user['alias'] . '.png')) { 
+                        echo '<img src="./Images/' . $user['alias'] . '.png" alt="blasonuser"/>';
+                    }
+                    else{
+                        echo '<img src="./Images/user.jpg" alt="blason"/>';
+                    } 
+                    ?>
+
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les messages de l'utilisatrice : <?php echo $user['alias'] ?>
@@ -126,7 +134,7 @@ if ($enCoursDeTraitement){
     <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
         <dl>
-            <dt><label for="message">Écris sur ton mur</label></dt><br>
+            <dt><label for="message">Écris sur ton mur :</label></dt><br>
             <dd><textarea rows="10" cols="30" name="message" id="message"></textarea></dd>
         </dl>
         <input type="submit" value="Envoyer">
@@ -161,7 +169,8 @@ if ($enCoursDeTraitement){
                  */
                 $laQuestionEnSql = "
                     SELECT posts.content, posts.created, posts.id, users.alias as author_name, users.id as author_id,
-                    COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist, 
+                    GROUP_CONCAT(DISTINCT tags.id) AS tag_ids 
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
                     LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
@@ -182,7 +191,10 @@ if ($enCoursDeTraitement){
                  */
                 while ($post = $lesInformations->fetch_assoc())
                 {
+                    
                     //echo "<pre>" . print_r($post, 1) . "</pre>";
+                    $postId = $post['id'];
+                    echo $postId;
 
                     ?>                
                     <article>
@@ -217,10 +229,10 @@ if ($enCoursDeTraitement){
                                     // Récupérer l'ID du tag inséré ou existant
                                     $result = $mysqli->query("SELECT id FROM tags WHERE label = '$labelMatch'");
                                     $row = $result->fetch_assoc();
-                                    $tagId = $row['id'];
+                                    $tagId0 = $row['id'];
 
                                     // Insérer dans la table posts_tags
-                                    $lInstructionSql = "INSERT INTO posts_tags (post_id, tag_id) VALUES ('$postId', '$tagId')";
+                                    $lInstructionSql = "INSERT INTO posts_tags (post_id, tag_id) VALUES ('$postId', '$tagId0')";
                                     $ok = $mysqli->query($lInstructionSql);
 
                                     // if (!$ok) {
@@ -233,12 +245,27 @@ if ($enCoursDeTraitement){
                             ?></p>
                         </div>                                            
                         <footer>
-                            <small style="color:red" >♥<?php echo $post['like_number'] ?></small>
+                            <small style="color:red" >♥</small>
+                            <small><?php echo $post['like_number'] ?></small>
                                 <form action="wall.php?user_id=<?php echo $userId ?>" id="likes" method="post">
                                     <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                     <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                                 </form>
-                            <a href="">#<?php echo $post['taglist'] ?></a>
+
+                            <?php
+                                if (!empty($post['taglist'])) {
+                                    $tagLabels = explode(',', $post['taglist']);
+                                    $tagIds = explode(',', $post['tag_ids']);
+                                    
+                                    foreach ($tagLabels as $key => $tagLabel) {
+                                        $tagId = $tagIds[$key];
+                                        echo "<a href='tags.php?tag_id=$tagId'>#" . htmlspecialchars($tagLabel) . "</a>";
+                                    }
+                                } else {
+                                    echo "<a href='#'>#notag</a>";
+                                }
+                                ?>
+
                         </footer>
                     </article>
                 <?php } ?>

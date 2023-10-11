@@ -80,7 +80,8 @@
                     users.alias as author_name,
                     users.id as author_id,  
                     count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
+                    GROUP_CONCAT(DISTINCT tags.label) AS taglist,
+                    GROUP_CONCAT(DISTINCT tags.id) AS tag_ids
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
                     LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
@@ -135,7 +136,21 @@
                                 <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                 <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                             </form>
-                            <a href="">#<?php echo $post['taglist'] ?></a>
+
+                            <?php
+                                if (!empty($post['taglist'])) {
+                                    $tagLabels = explode(',', $post['taglist']);
+                                    $tagIds = explode(',', $post['tag_ids']);
+                                    
+                                    foreach ($tagLabels as $key => $tagLabel) {
+                                        $tagId = $tagIds[$key];
+                                        echo "<a href='tags.php?tag_id=$tagId'>#" . htmlspecialchars($tagLabel) . "</a>";
+                                    }
+                                } else {
+                                    echo "<a href='#'>#notag</a>";
+                                }
+                                ?>
+
                             
                         </footer>
                     </article>
