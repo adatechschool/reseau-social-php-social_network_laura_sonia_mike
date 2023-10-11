@@ -28,11 +28,13 @@ session_start();
 <link href="https://fonts.googleapis.com/css2?family=Borel&family=Bungee+Shade&family=Pacifico&family=Poppins:wght@200;500;600&display=swap" rel="stylesheet">
 <nav id="title">Chat-badab-ADA</nav>
 <nav id="user">
+    
     <a href="#">▾ Profil</a>
     <ul>
         <li><a href="settings.php?user_id=<?php echo $_SESSION['connected_id']?>">Paramètres</a></li>
         <li><a href="followers.php?user_id=<?php echo $_SESSION['connected_id']?>">Mes suiveurs</a></li>
         <li><a href="subscriptions.php?user_id=<?php echo $_SESSION['connected_id']?>">Mes abonnements</a></li>
+        <li><a href="logoff.php">Déconnexion</a></li>
     </ul>
 </nav>
 </header>

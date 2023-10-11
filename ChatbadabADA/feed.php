@@ -104,7 +104,8 @@
                         <p><?php echo $post['content'] ?></p>
                     </div>                                            
                     <footer>
-                            <small style="color: red">♥<?php echo $post['like_number'] ?></small>
+                    <small style="color:red" >♥</small>
+                            <small><?php echo $post['like_number'] ?></small>
                                 <form action="feed.php?user_id=<?php echo $userId ?>" id="likes" method="post">
                                     <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                     <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
