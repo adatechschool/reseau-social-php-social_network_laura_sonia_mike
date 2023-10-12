@@ -44,7 +44,7 @@
                  */
 
                 
-                //verification
+                //verification de quoi ??
                 if ($mysqli->connect_errno)
                 {
                     echo "<article>";
@@ -91,7 +91,7 @@
                     LIMIT 5
                     ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
-                // Vérification
+                // Vérification de quoi ??
                 if ( ! $lesInformations)
                 {
                     echo "<article>";

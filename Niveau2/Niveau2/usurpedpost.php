@@ -59,7 +59,7 @@
                                 . "NOW());"
                                 ;
                         //echo $lInstructionSql;
-                        // Etape 5 : execution
+                        // Etape 5 : execution de quoi ??
                         $ok = $mysqli->query($lInstructionSql);
                         if ( ! $ok)
                         {

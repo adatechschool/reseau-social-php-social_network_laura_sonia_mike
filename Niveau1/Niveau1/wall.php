@@ -34,7 +34,7 @@
                 </section>
 
                 
-
+<!-- a commenter -->
 <?php
                 $enCoursDeTraitement = isset($_POST['message']);
                     if ($enCoursDeTraitement)
@@ -67,7 +67,7 @@
 
                         
                         
-                        // Etape 5 : execution
+                        // Etape 5 : execution de quoi ??
                         $ok = $mysqli->query($lInstructionSql);
                         
 
@@ -82,7 +82,9 @@
                             
                         }
                     }
-?>
+?> 
+
+<!-- a commenter -->
 <?php
 $enCoursDeTraitement = isset($_POST['button']);
 if ($enCoursDeTraitement){
@@ -102,7 +104,7 @@ if ($enCoursDeTraitement){
                                 . "'" . $stalkerId . "')"
                                 ;
                         //echo $lInstructionSql;
-
+// a commenter
 $ok = $mysqli->query($lInstructionSql);
 if ( ! $ok)
 {
@@ -110,7 +112,7 @@ if ( ! $ok)
 }
 }
 ?>
-
+<!-- a commenter -->
 <?php
 $enCoursDeTraitement = isset($_POST['likes']);
 if ($enCoursDeTraitement){
@@ -124,7 +126,7 @@ if ($enCoursDeTraitement){
     $lesInformations = $mysqli->query($lInstructionSql);
     }
 ?>
-
+<!-- a commenter -->
 <?php if ($_SESSION['connected_id'] == $userId): ?>
     <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
