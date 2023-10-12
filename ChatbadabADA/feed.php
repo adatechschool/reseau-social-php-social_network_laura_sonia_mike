@@ -110,7 +110,8 @@
                                     <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                     <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                                 </form>
-                            <!-- a commenter -->
+                            <!-- On récupère la liste des tags en base de données, puis on utilise une boucle pour comparer avec le tag de notre message, s'il existe on l'affiche -->
+
                                 <?php
                                 if (!empty($post['taglist'])) {
                                     $tagLabels = explode(',', $post['taglist']);

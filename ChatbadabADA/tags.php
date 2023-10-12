@@ -41,7 +41,7 @@
 
                 
                 <h3>Mots-clefs disponibles</h3>
-                <!-- a commenter -->
+                <!-- On récupère la liste des tags dans la base de données et on les affiche -->
                 <?php while($tagList = $listeDesTags->fetch_assoc()) { ?>
                 <div class="motHashTag">               
                 <a href=""><i> #<?php echo $tagList['label'] ?> </i></a>
@@ -102,7 +102,7 @@
                     //echo "<pre>" . print_r($post, 1) . "</pre>";
                     ?>                
                              
-                             <!-- a commenter -->
+                             <!-- Affichage du html et des valeurs dynamiques en php -->
                 <article>
                     <h3>
                         <time datetime='2020-02-01 11:12:13' ><?php echo $post['created'] ?></time>

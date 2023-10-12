@@ -42,9 +42,9 @@
                 </section>
 
                 
-<!-- a commenter -->
+<!-- Si il y a une entrée dans le formulaire -->
 <?php
-                $enCoursDeTraitement = isset($_POST['message']);
+                $enCoursDeTraitement = isset($_POST['message']); 
                     if ($enCoursDeTraitement)
                     {
                         
@@ -75,7 +75,7 @@
 
                         
                         
-                        // Etape 5 : execution de quoi
+                        // Etape 5 : execution de la requête SQL avec query
                         $ok = $mysqli->query($lInstructionSql);
                         
 
@@ -88,12 +88,12 @@
                         }
                     }
 ?>
-<!-- a commenter -->
+<!-- Si il y a une entrée dans le formulaire (clic sur le bouton d'abonnement) -->
 <?php
 $enCoursDeTraitement = isset($_POST['button']);
 if ($enCoursDeTraitement){
-                        $stalkerId = $_SESSION['connected_id'];      //$_POST['auteur'];
-                        $followedId = $userId;
+                        $stalkerId = $_SESSION['connected_id'];      //id de la personne connectée
+                        $followedId = $userId;                       //id de la personne à suivre
 
 
                         //Etape 3 : Petite sécurité
@@ -116,7 +116,8 @@ if ( ! $ok)
 }
 }
 ?>
-<!-- a commenter -->
+<!-- Si il y a une entrée dans le formulaire (clic sur le bouton like) -->
+<!-- On fait une requête pour insérer le like dans la base de données -->
 <?php
 $enCoursDeTraitement = isset($_POST['likes']);
 if ($enCoursDeTraitement){
@@ -130,8 +131,9 @@ if ($enCoursDeTraitement){
     $lesInformations = $mysqli->query($lInstructionSql);
     }
 ?>
-<!-- a commenter -->
 
+<!-- Si l'utilisateur connecté est le même que l'utilisateur dont le mur est affiché -->
+<!-- On affiche le champ pour écrire un message sur le mur -->
 <?php if ($_SESSION['connected_id'] == $userId): ?>
     <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['connected_id']; ?>">
@@ -141,7 +143,8 @@ if ($enCoursDeTraitement){
         </dl>
         <input type="submit" value="Envoyer">
     </form>
-    <!-- a commenter -->
+<!-- Sinon si l'utilisateur connecté n'est pas le même que l'utilisateur dont le mur est affiché -->
+<!-- On vérifie dans la base si l'abonnement existe déjà -->
 <?php else:
     $connected_id = $_SESSION['connected_id'];
     $requeteSql = "
@@ -150,12 +153,14 @@ if ($enCoursDeTraitement){
                     WHERE (followers.followed_user_id='$userId') AND (followers.following_user_id='$connected_id')
                     ";
                 $lesInformations = $mysqli->query($requeteSql);
+                //Si non on affiche le bouton pour s'abonner
                 if ($lesInformations->num_rows == 0): ?>
                 
                     <form action="wall.php?user_id=<?php echo $userId ?>" id="abonnement" method="post">
                         <p>Voulez-vous vous abonner à cet utilisateur ?</p>
                         <input type="submit" name="button" class="button" value="S'abonner">
                         </form>
+                        <!--Si oui on affiche qu'il est déjà abonné-->
                         <?php else:
                             echo "Vous êtes abonné à : " . $user['alias'];
                         ?>
@@ -211,12 +216,12 @@ if ($enCoursDeTraitement){
                         </address>
                         <div>
                             <p>
-                                <!-- a commenter -->
+                                <!-- On récupère le message du formulaire de message et on vérifie s'il y a des retours à la ligne \n -->
             <?php 
                             $message = $post['content'];
                             $messageArray = explode("\n", $message);
                             foreach ($messageArray as $sentence){
-                                echo $sentence."<br>";
+                                echo $sentence."<br>"; //S'il y en a on les affiche
                             }
 
                             if (preg_match_all('/#(\p{L}+)/u', $message, $matches)) {

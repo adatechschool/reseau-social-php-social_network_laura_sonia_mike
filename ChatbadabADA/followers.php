@@ -31,7 +31,7 @@
                 while ($post = $lesInformations->fetch_assoc())
                 { ?>
                 <article>
-<!-- a commenter -->
+<!-- Si l'image contenant le nom du user existe, on affiche cette image, sinon une image par défaut -->
                     <?php
                     if(file_exists('./Images/' . $post['alias'] . '.png')) { 
                         echo '<img src="./Images/' . $post['alias'] . '.png" alt="blasonuser"/>';
