@@ -59,7 +59,7 @@
                                 . "NOW());"
                                 ;
                         //echo $lInstructionSql;
-                        // Etape 5 : execution
+                        // Etape 5 : execution de quoi ?
                         $ok = $mysqli->query($lInstructionSql);
                         if ( ! $ok)
                         {
@@ -69,7 +69,8 @@
                             echo "Message posté en tant que : " . $listAuteurs[$authorId];
                         }
                     }
-                    ?>                     
+                    ?>    
+                                     <!-- a commenter -->
                     <form action="usurpedpost.php" method="post">
                         <input type='hidden' name='???' value='achanger'>
                         <dl>

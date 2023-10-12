@@ -3,7 +3,7 @@
         ?>
 
         <?php
-        //verification
+        //verification de quoi
         if ($mysqli->connect_errno)
         {
             echo("Échec de la connexion : " . $mysqli->connect_error);
@@ -52,7 +52,7 @@
                  */
                 $laQuestionEnSql = "SELECT * FROM `users` LIMIT 50";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
-                // Vérification
+                // Vérification de quoi
                 if ( ! $lesInformations)
                 {
                     echo("Échec de la requete : " . $mysqli->error);

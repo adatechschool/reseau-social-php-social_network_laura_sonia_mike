@@ -31,7 +31,7 @@
                 while ($post = $lesInformations->fetch_assoc())
                 { ?>
                 <article>
-
+<!-- a commenter -->
                     <?php
                     if(file_exists('./Images/' . $post['alias'] . '.png')) { 
                         echo '<img src="./Images/' . $post['alias'] . '.png" alt="blasonuser"/>';

@@ -42,7 +42,7 @@
                 </section>
 
                 
-
+<!-- a commenter -->
 <?php
                 $enCoursDeTraitement = isset($_POST['message']);
                     if ($enCoursDeTraitement)
@@ -75,7 +75,7 @@
 
                         
                         
-                        // Etape 5 : execution
+                        // Etape 5 : execution de quoi
                         $ok = $mysqli->query($lInstructionSql);
                         
 
@@ -88,6 +88,7 @@
                         }
                     }
 ?>
+<!-- a commenter -->
 <?php
 $enCoursDeTraitement = isset($_POST['button']);
 if ($enCoursDeTraitement){
@@ -115,7 +116,7 @@ if ( ! $ok)
 }
 }
 ?>
-
+<!-- a commenter -->
 <?php
 $enCoursDeTraitement = isset($_POST['likes']);
 if ($enCoursDeTraitement){
@@ -129,6 +130,7 @@ if ($enCoursDeTraitement){
     $lesInformations = $mysqli->query($lInstructionSql);
     }
 ?>
+<!-- a commenter -->
 
 <?php if ($_SESSION['connected_id'] == $userId): ?>
     <form action="wall.php?user_id=<?php echo $userId ?>" id="messageForm" method="post">
@@ -139,6 +141,7 @@ if ($enCoursDeTraitement){
         </dl>
         <input type="submit" value="Envoyer">
     </form>
+    <!-- a commenter -->
 <?php else:
     $connected_id = $_SESSION['connected_id'];
     $requeteSql = "
@@ -207,7 +210,9 @@ if ($enCoursDeTraitement){
                             </a>
                         </address>
                         <div>
-                            <p><?php 
+                            <p>
+                                <!-- a commenter -->
+            <?php 
                             $message = $post['content'];
                             $messageArray = explode("\n", $message);
                             foreach ($messageArray as $sentence){

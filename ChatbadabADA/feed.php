@@ -110,7 +110,7 @@
                                     <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                     <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                                 </form>
-                            
+                            <!-- a commenter -->
                                 <?php
                                 if (!empty($post['taglist'])) {
                                     $tagLabels = explode(',', $post['taglist']);

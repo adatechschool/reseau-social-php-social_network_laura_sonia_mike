@@ -47,7 +47,7 @@
                                 . "'" . $new_passwd . "', "
                                 . "'" . $new_alias . "'"
                                 . ");";
-                        // Etape 6: exécution de la requête
+                        // Etape 6: exécution de la requête qui fait quoi
                         $ok = $mysqli->query($lInstructionSql);
                         if ( ! $ok)
                         {

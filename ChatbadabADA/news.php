@@ -44,7 +44,7 @@
                  */
 
                 
-                //verification
+                //verification de quoi
                 if ($mysqli->connect_errno)
                 {
                     echo "<article>";
@@ -92,7 +92,7 @@
                     LIMIT 5
                     ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
-                // Vérification
+                // Vérification de quoi
                 if ( ! $lesInformations)
                 {
                     echo "<article>";
@@ -137,7 +137,7 @@
                                 <input type="submit" name="likes" value="♥" style="color: red; cursor: pointer;">
                                 <input type="hidden" name="post_id" value="<?php echo $post['id'] ?>">
                             </form>
-
+<!-- a commenter -->
                             <?php
                                 if (!empty($post['taglist'])) {
                                     $tagLabels = explode(',', $post['taglist']);
